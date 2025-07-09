@@ -1,4 +1,5 @@
-server:  port: 8090
+server:
+  port: 8090
 
 management.health.circuitbreakers.enabled: true
 
@@ -11,21 +12,30 @@ management:
         health:
           show-details: always
   
-resilience4j.circuitbreaker:    circuit-breaker-aspect-order: 4
-    instances:        getEmploye:
+resilience4j.circuitbreaker:
+    circuit-breaker-aspect-order: 4
+    instances:
+        getEmploye:
             registerHealthIndicator: true
             slidingWindowSize: 10
             permittedNumberOfCallsInHalfOpenState: 5
             slidingWindowType: COUNT_BASED
-            minimumNumberOfCalls: 4
-            waitDurationInOpenState: 20s
+            minimumNumberOfCalls: 6
+            waitDurationInOpenState: 150s
             failureRateThreshold: 50
-            eventConsumerBufferSize: 10            record-exceptions:            - org.springframework.web.client.ResourceAccessException            - java.net.ConnectException            - java.lang.RuntimeException        
+            eventConsumerBufferSize: 10
+            record-exceptions:
+            - org.springframework.web.client.ResourceAccessException
+            - java.net.ConnectException
+            - java.lang.RuntimeException
+        
 resilience4j:
-  retry:    retry-aspect-order: 3
+  retry:
+    retry-aspect-order: 3
     instances:
         getEmployetretry:
           max-retry-attempts: 3
-          wait-duration:  1000            
+          wait-duration:  1000
+            
           
                  

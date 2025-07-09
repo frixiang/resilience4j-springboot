@@ -8,17 +8,17 @@ import org.springframework.web.client.RestTemplate;
 
 @SpringBootApplication
 public class SpringbootresilienceApplication {
-	
-	@Bean
-	public RestTemplate restTemplate() {
-		return new RestTemplate();
-	}
 
-	public static void main(String[] args) {
-		
-		SpringApplication.run(SpringbootresilienceApplication.class, args);
-		
-	
-	}
+    @Bean
+    public RestTemplate restTemplate() {
+        return new RestTemplate();
+    }
+
+    public static void main(String[] args) {
+
+        SpringApplication.run(SpringbootresilienceApplication.class, args);
+
+
+    }
 
 }
