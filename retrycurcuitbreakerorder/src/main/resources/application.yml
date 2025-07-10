@@ -13,11 +13,15 @@ management:
           show-details: always
   
 resilience4j.circuitbreaker:
-    circuit-breaker-aspect-order: 4
+    circuit-breaker-aspect-order: 4 # 默认retry的order比circuit-breaker小1，也就是优先级更高；当retry优先级高时，
+    # 默认执行流程: @Retry (外层) -> @CircuitBreaker (内层) -> 您的方法；每次重试会检查CircuitBreaker的状态；每次重试都会计入到成功或失败计数中
+    # 而当CircuitBreaker优先级高于retry时，
+    # @CircuitBreaker (外层) -> @Retry (内层) -> 您的方法，某次请求，重试全部次数后若还是失败，则会进入重试的fallback,仅当该fallback抛出异常，才会进入熔断的fallback,并且记录失败次数+1
+    # 若在重试的fallback中未抛出异常，则不会进入熔断的fallback，且会认为本次调用是成功的
     instances:
         getEmploye:
             registerHealthIndicator: true
-            slidingWindowSize: 10
+            slidingWindowSize: 10 # 注意：当窗口中调用次数达到 min(slidingWindowSize, minimumNumberOfCalls) 时，才开始统计失败率，一般slidingWindowSize>=minimumNumberOfCalls
             permittedNumberOfCallsInHalfOpenState: 5
             slidingWindowType: COUNT_BASED
             minimumNumberOfCalls: 6
