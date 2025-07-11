@@ -10,9 +10,9 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.snkit.springbootresilience</groupId>
-	<artifactId>springbootresilience</artifactId>
+	<artifactId>springbootresilienceRC</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>springbootresilience</name>
+	<name>springbootresilienceRC</name>
 	<description>Demo project for Spring Boot</description>
 
 	<properties>
